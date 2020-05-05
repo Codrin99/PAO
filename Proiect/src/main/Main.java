@@ -3,17 +3,24 @@ package main;
 import java.lang.String;
 
 public class Main {
-    public static void main(String[] args) {
-        Service service = new Service();
+
+    public static void main(String[] args)throws DocumentException {
+        Service service = Service.Service();
+
+        service.readClient();
+        service.readColet();
+        service.readCurier();
+        service.readMasina();
 
         //Companie
-        companie IKEA = new companie("Bucuresti, Strada lamaitei nr. 4");
+        Companie IKEA = new Companie("Bucuresti, Strada lamaitei nr. 4");
 
         //Curier
-        curier FanCurier = new curier("FanCurier");
+        Curier FanCurier = new Curier("FanCurier", 2);
+        service.addCurier(FanCurier);
 
         //Angajat
-        angajat Marius = new angajat("Marius", "FanCurier");
+        Angajat Marius = new Angajat("Marius", "FanCurier");
         if (Marius.getFirma() == FanCurier.getNume()) {
             FanCurier.addAngajat();
         }
@@ -22,7 +29,7 @@ public class Main {
         service.addAngajat(Marius);
 
         //Colet
-        colet cutie = new colet("Brassov, Strada Decebal nr.3", "Bucuresti, Strada lamaitei nr. 4", "14:30", " Urziceni", 5, 863, 1, "Marius");
+        Colet cutie = new Colet("Brassov, Strada Decebal nr.3", "Bucuresti, Strada lamaitei nr. 4", "14:30", " Urziceni", 5, 863, 1, "Marius", 5);
         if (cutie.getNumeLivrator() == Marius.getNume()) {
             Marius.addNrLivrari();
             Marius.addkmParcrusi(279);
@@ -32,16 +39,17 @@ public class Main {
         service.addColet(cutie);
 
         //Masina
-        masina Dacia = new masina("B 05 ADT", "Diesel", "Marius");
+        Masina Dacia = new Masina("B 05 ADT", "Diesel", "Marius");
+        service.addMasina(Dacia);
 
         //Foaie de parcrus
-        foaieDeParcurs foaie = new foaieDeParcurs("Bucuresti", "Brasov", 5, 1, "B 05 ADT", "Diesel", "Marius");
+        FoaieDeParcurs foaie = new FoaieDeParcurs("Bucuresti", "Brasov", 5, 1);
 
         //Client
-        client George = new client("Brasob, Strada Decebal nr.3", "20.04.2020", 863);
-
+        Client George = new Client( "George","Brasov, Strada Decebal nr.3", "20.04.2020", 863 );
+        service.addClient(George);
         //Printing
-        foaie.printFoaie();
+        //foaie.printFoaie();
 
         //Printing from service and then remove colet
         service.printAngajat(Marius);
